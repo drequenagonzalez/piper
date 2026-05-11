@@ -21,6 +21,7 @@
         "php": "^8.5"
     },
     "require-dev": {
+        "illuminate/collections": "^13.8",
         "laravel/pint": "^1.24",
         "pestphp/pest": "^4.0",
         "psy/psysh": "^0.12.22"
@@ -39,6 +40,7 @@
         }
     },
     "scripts": {
+        "benchmark": "php benchmarks/map.php",
         "test": "vendor/bin/pest",
         "format": "vendor/bin/pint"
     },
