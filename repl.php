@@ -7,7 +7,7 @@ use Psy\Shell;
 
 require __DIR__.'/vendor/autoload.php';
 
-$shell = new Shell();
-$shell->addInput('namespace Spatie\\Piper;', true);
+$shell = new Shell;
+$shell->addInput('namespace Spatie\\Piper\\Arr;', true);
 
 exit($shell->run());

@@ -106,7 +106,7 @@ function runCase(string $case, array $items): array
     }
 
     if ($case === 'piper_map') {
-        return $items |> Spatie\Piper\map(static fn (int $value): int => $value * 2);
+        return $items |> Spatie\Piper\Arr\map(static fn (int $value): int => $value * 2);
     }
 
     if ($case === 'foreach') {

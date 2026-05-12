@@ -1,27 +1,27 @@
 <?php
 
-use function Spatie\Piper\diff;
-use function Spatie\Piper\diffAssoc;
-use function Spatie\Piper\diffKeys;
-use function Spatie\Piper\duplicates;
-use function Spatie\Piper\intersect;
-use function Spatie\Piper\intersectAssoc;
-use function Spatie\Piper\intersectByKeys;
-use function Spatie\Piper\merge;
-use function Spatie\Piper\mergeRecursive;
-use function Spatie\Piper\nth;
-use function Spatie\Piper\replace;
-use function Spatie\Piper\replaceRecursive;
-use function Spatie\Piper\reverse;
-use function Spatie\Piper\sort;
-use function Spatie\Piper\sortBy;
-use function Spatie\Piper\sortByDesc;
-use function Spatie\Piper\sortDesc;
-use function Spatie\Piper\sortKeys;
-use function Spatie\Piper\sortKeysDesc;
-use function Spatie\Piper\union;
-use function Spatie\Piper\unique;
-use function Spatie\Piper\values;
+use function Spatie\Piper\Arr\diff;
+use function Spatie\Piper\Arr\diffAssoc;
+use function Spatie\Piper\Arr\diffKeys;
+use function Spatie\Piper\Arr\duplicates;
+use function Spatie\Piper\Arr\intersect;
+use function Spatie\Piper\Arr\intersectAssoc;
+use function Spatie\Piper\Arr\intersectByKeys;
+use function Spatie\Piper\Arr\merge;
+use function Spatie\Piper\Arr\mergeRecursive;
+use function Spatie\Piper\Arr\nth;
+use function Spatie\Piper\Arr\replace;
+use function Spatie\Piper\Arr\replaceRecursive;
+use function Spatie\Piper\Arr\reverse;
+use function Spatie\Piper\Arr\sort;
+use function Spatie\Piper\Arr\sortBy;
+use function Spatie\Piper\Arr\sortByDesc;
+use function Spatie\Piper\Arr\sortDesc;
+use function Spatie\Piper\Arr\sortKeys;
+use function Spatie\Piper\Arr\sortKeysDesc;
+use function Spatie\Piper\Arr\union;
+use function Spatie\Piper\Arr\unique;
+use function Spatie\Piper\Arr\values;
 
 it('sorts values and keys', function () {
     expect(['b' => 2, 'a' => 1] |> sortKeys())->toBe(['a' => 1, 'b' => 2]);

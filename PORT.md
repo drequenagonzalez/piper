@@ -1,17 +1,17 @@
-# Piper Laravel Collection Port Plan
+# Piper Laravel Collection and String Port Plan
 
 ## Goal
 
 Piper is a Laravel-package-shaped PHP package that ports Laravel's `Collection`
-API to plain arrays and pipe-native functions.
+API and fluent `Str` API to plain arrays, strings, and pipe-native functions.
 
 The package should let users write collection-style transformations without a
 wrapper object:
 
 ```php
-use function Spatie\Piper\filter;
-use function Spatie\Piper\map;
-use function Spatie\Piper\values;
+use function Spatie\Piper\Arr\filter;
+use function Spatie\Piper\Arr\map;
+use function Spatie\Piper\Arr\values;
 
 $result = [1, 2, 3, 4]
     |> map(fn (int $value): int => $value * 2)
@@ -21,8 +21,20 @@ $result = [1, 2, 3, 4]
 
 This targets PHP 8.5's native pipe operator. The pipe operator passes the left
 side into a single callable on the right, so public Piper functions should be
-closure factories. Internal first-argument implementations live in an internal
-namespace and do the actual work.
+closure factories.
+
+String transformations follow the same pipe-native shape:
+
+```php
+use function Spatie\Piper\Str\after;
+use function Spatie\Piper\Str\headline;
+use function Spatie\Piper\Str\squish;
+
+$title = 'posts: writing clean pipelines'
+    |> after('posts:')
+    |> squish()
+    |> headline();
+```
 
 ## Confirmed Decisions
 
@@ -31,15 +43,20 @@ namespace and do the actual work.
 - Public function imports use PHP function import syntax:
 
 ```php
-use function Spatie\Piper\map;
+use function Spatie\Piper\Arr\map;
 ```
 
-- Public functions live in the `Spatie\Piper` namespace.
-- Public functions are pipe-native closure factories, for example
+- Public array functions live in the `Spatie\Piper\Arr` namespace.
+- Public string functions live in the `Spatie\Piper\Str` namespace.
+- Array functions are pipe-native closure factories, for example
   `map(callable $callback): Closure`.
+- String transformation functions are pipe-native closure factories, for
+  example `after(string $search): Closure`.
+- String source helpers that do not consume a piped string may return values
+  directly, for example `random(16)`, `uuid()`, or `password()`.
 - Implementations are inline in the public function files. Small shared helper
   functions for behavior like dot access and callback normalization live in
-  `src/Functions/support.php`.
+  `src/Support`.
 - All array-returning operations are immutable.
 - Methods that mutate Laravel collection instances should not mutate input
   arrays. For mutation-primary extractors such as `pop`, `shift`, `pull`, and
@@ -60,6 +77,16 @@ use function Spatie\Piper\map;
   `https://github.com/laravel/framework/tree/13.x/src/Illuminate/Collections`
 - Laravel 13.x collection tests:
   `https://github.com/laravel/framework/blob/13.x/tests/Support/SupportCollectionTest.php`
+- Laravel 13.x strings documentation:
+  `https://laravel.com/docs/13.x/strings`
+- Laravel support `Str` source:
+  `https://github.com/illuminate/support/blob/master/Str.php`
+- Laravel support `Stringable` source:
+  `https://github.com/illuminate/support/blob/master/Stringable.php`
+- Laravel 13.x `Str` tests:
+  `https://github.com/laravel/framework/blob/13.x/tests/Support/SupportStrTest.php`
+- Laravel 13.x `Stringable` tests:
+  `https://github.com/laravel/framework/blob/13.x/tests/Support/SupportStringableTest.php`
 - Spatie package skeleton:
   `https://github.com/spatie/package-skeleton-laravel`
 - PHP pipe operator:
@@ -77,25 +104,41 @@ composer.json
 README.md
 PORT.md
 src/
-  Functions/
+  Arr/
     map.php
     filter.php
     ...
+  Str/
+    after.php
+    headline.php
+    squish.php
+    ...
+  Support/
+    normalize.php
+    dataGet.php
+    ...
+  Exceptions/
+    ItemNotFoundException.php
+    MultipleItemsFoundException.php
   functions.php
-  internal.php
 tests/
   Functions/
     MapTest.php
     FilterTest.php
     ...
+    Str/
+      AfterTest.php
+      SquishTest.php
+      ...
   TestCase.php
 ```
 
-`src/Functions/*.php` files define the public `Spatie\Piper` functions.
-`src/Functions/*.php` files define the public `Spatie\Piper` functions and
-inline their implementations in the returned closures. `Spatie\Piper\Support`
-contains only shared primitives. `src/functions.php` is the Composer autoload
-entrypoint that requires the individual function files.
+`src/Arr/*.php` files define the public `Spatie\Piper\Arr` functions.
+`src/Str/*.php` files define the public `Spatie\Piper\Str` functions. Both
+namespaces inline their implementations in the returned closures.
+`Spatie\Piper\Support` contains only shared primitives. `src/functions.php` is
+the Composer autoload entrypoint that requires `Support`, `Arr`, and `Str`
+function files.
 
 Composer autoload should use `files` for functions:
 
@@ -123,30 +166,26 @@ Every collection method gets its own public function file when implemented.
 For methods with extra arguments:
 
 ```php
-namespace Spatie\Piper;
+namespace Spatie\Piper\Arr;
 
 use Closure;
 
-use function Spatie\Piper\Internal\map as internal_map;
-
 function map(callable $callback): Closure
 {
-    return fn (array $items): array => internal_map($items, $callback);
+    return fn (array $items): array => array_map($callback, $items);
 }
 ```
 
 For methods without extra arguments:
 
 ```php
-namespace Spatie\Piper;
+namespace Spatie\Piper\Arr;
 
 use Closure;
 
-use function Spatie\Piper\Internal\values as internal_values;
-
 function values(): Closure
 {
-    return fn (array $items): array => internal_values($items);
+    return fn (array $items): array => array_values($items);
 }
 ```
 
@@ -154,36 +193,45 @@ For constructors or source-producing methods that do not transform an input
 array, return arrays directly:
 
 ```php
-$numbers = Spatie\Piper\range(1, 10);
-$items = Spatie\Piper\fromJson($json);
+$numbers = Spatie\Piper\Arr\range(1, 10);
+$items = Spatie\Piper\Arr\fromJson($json);
 ```
 
 Be careful with names that collide with PHP native functions. They are safe
-inside `Spatie\Piper`, but examples should always import explicitly or call the
+inside `Spatie\Piper\Arr`, but examples should always import explicitly or call the
 fully qualified function.
 
-## Internal API Pattern
-
-Internal functions take the data first and can call each other directly:
+String functions use the same convention. Methods that transform a source
+string return closure factories:
 
 ```php
-namespace Spatie\Piper\Internal;
+namespace Spatie\Piper\Str;
 
-function map(array $items, callable $callback): array
+use Closure;
+
+function after(string $search): Closure
 {
-    $result = [];
-
-    foreach ($items as $key => $value) {
-        $result[$key] = $callback($value, $key);
-    }
-
-    return $result;
+    return fn (string $subject): string => $search === ''
+        ? $subject
+        : array_reverse(explode($search, $subject, 2))[0];
 }
 ```
 
-Internal composition should prefer Piper internals over PHP one-liners when that
-keeps behavior aligned with Laravel semantics. Do not use Laravel's
-`Collection`, `Arr`, helpers, or contracts.
+Methods that produce a value without a source string return the value directly:
+
+```php
+namespace Spatie\Piper\Str;
+
+function random(int $length = 16): string
+{
+    // ...
+}
+```
+
+Laravel's fluent `Stringable` object should not be ported as a wrapper class for
+the initial implementation. The Piper equivalent of `Str::of($value)->squish()`
+is `(string) $value |> squish()`. Do not add a global `str()` helper unless we
+later decide Piper should provide global helper aliases.
 
 ## Data Access Helpers
 
@@ -372,6 +420,162 @@ reduceWithKeys
 unshift
 ```
 
+## String Method Inventory
+
+Implement documented Laravel string and fluent string methods where they make
+sense for plain strings:
+
+```text
+after
+afterLast
+apa
+append
+ascii
+basename
+before
+beforeLast
+between
+betweenFirst
+camel
+charAt
+chopStart
+chopEnd
+classBasename
+contains
+containsAll
+deduplicate
+dirname
+doesntContain
+endsWith
+exactly
+excerpt
+explode
+finish
+fromBase64
+headline
+inlineMarkdown
+is
+isAscii
+isEmpty
+isJson
+isMatch
+isNotEmpty
+isUlid
+isUrl
+isUuid
+kebab
+lcfirst
+length
+limit
+lower
+markdown
+mask
+matchAll
+newLine
+padBoth
+padLeft
+padRight
+parseCallback
+password
+plural
+pluralStudly
+position
+prepend
+random
+remove
+repeat
+replace
+replaceArray
+replaceFirst
+replaceLast
+replaceMatches
+replaceStart
+replaceEnd
+reverse
+scan
+singular
+slug
+snake
+split
+squish
+start
+startsWith
+stripTags
+studly
+substr
+substrCount
+substrReplace
+swap
+take
+tap
+test
+title
+toBase64
+toBoolean
+toFloat
+toHtmlString
+toInteger
+toString
+transliterate
+trim
+ltrim
+rtrim
+ucfirst
+ucsplit
+ulid
+unwrap
+upper
+value
+uuid
+uuid7
+wordCount
+wordWrap
+words
+wrap
+```
+
+Also consider implementing these public methods from Laravel's actual `Str` and
+`Stringable` sources, even though they are not all prominent in the docs:
+
+```text
+convertCase
+createRandomStringsNormally
+createRandomStringsUsing
+createRandomStringsUsingSequence
+createUlidsNormally
+createUlidsUsing
+createUlidsUsingSequence
+createUuidsNormally
+createUuidsUsing
+createUuidsUsingSequence
+flushCache
+freezeUlids
+freezeUuids
+numbers
+orderedUuid
+pascal
+pluralPascal
+toDate
+```
+
+Track these documented methods separately because they appeared in the Laravel
+13.x strings documentation but were not present in the reviewed `Str.php` or
+`Stringable.php` source:
+
+```text
+decrypt
+doesntEndWith
+doesntStartWith
+encrypt
+hash
+initials
+toUri
+ucwords
+match
+whenDoesntEndWith
+whenDoesntStartWith
+```
+
 ## Semantic Notes
 
 `all`
@@ -414,6 +618,96 @@ unshift
 : Document as not implemented initially unless we decide to provide a tiny
   dependency-free `var_dump`/`exit` equivalent. Laravel's versions rely on app
   debugging helpers.
+
+## String Semantic Notes
+
+Most Laravel `Stringable` methods return a new `Stringable` instance. Piper
+should return plain strings for transformations, booleans for predicates,
+integers/floats for measurements or casts, and arrays for split/extract methods.
+
+`after`, `afterLast`, `before`, `beforeLast`, `between`, `betweenFirst`,
+`substr`, `take`
+: Return strings and preserve Laravel's edge cases for empty search strings,
+  negative indexes, and missing delimiters.
+
+`camel`, `kebab`, `snake`, `studly`, `pascal`
+: Preserve Laravel's per-process caches and expose `flushCache()` if these
+  methods are implemented with caches. `pascal` is a source alias of `studly`;
+  the docs still emphasize `studly`.
+
+`contains`, `containsAll`, `doesntContain`, `startsWith`, `endsWith`, `is`,
+`isMatch`
+: Return booleans. Preserve Laravel's array/iterable needle support and
+  `ignoreCase` arguments where present.
+
+`append`, `prepend`, `finish`, `start`, `wrap`, `unwrap`, `newLine`
+: Return changed string copies. `append` and `prepend` should accept variadic
+  values like Laravel's fluent API.
+
+`explode`, `split`, `scan`, `matchAll`
+: Return plain arrays, not collections. Keep result shapes compatible with the
+  underlying Laravel behavior as closely as practical.
+
+`tap`
+: Return the original string after running side effects.
+
+`when` and the fluent `when*` methods
+: Do not implement for strings. Piper string pipelines should keep branching in
+  normal PHP control flow instead of porting Laravel's fluent conditional API.
+
+`toString`, `value`
+: Both should return the current string. `toString` is useful for Laravel parity
+  even though a Piper pipeline already holds a string.
+
+`toInteger`, `toFloat`, `toBoolean`
+: Return scalar casts. Match Laravel's conversion semantics, including
+  `FILTER_VALIDATE_BOOLEAN` behavior for booleans.
+
+`toDate`
+: Requires a decision. Laravel's fluent method uses the `Date` facade and
+  Carbon-like behavior. Piper should either omit it initially or introduce an
+  explicit date dependency; do not silently use framework facades.
+
+`markdown`, `inlineMarkdown`, `toHtmlString`
+: Requires a decision. Laravel uses `league/commonmark` and returns HTML-ish
+  values, with `toHtmlString` returning an `HtmlString` object. Piper should omit
+  these initially unless we accept optional or required Markdown/HTML
+  dependencies.
+
+`encrypt`, `decrypt`, `hash`, `toUri`
+: These are documented fluent string methods, but they are not implemented by
+  `Stringable.php` in the reviewed source. Keep them out of the initial source
+  inventory unless their upstream implementation lands or we intentionally add
+  Piper-specific helpers.
+
+`match`
+: Do not implement as a Piper function named `match`. `match` is a PHP reserved
+  keyword, so `use function Spatie\Piper\Str\match;` and `match(...)` are not a
+  usable pipe-facing API.
+
+`random`, `password`, `uuid`, `uuid7`, `orderedUuid`, `ulid`
+: Source helpers. They should return values directly and need deterministic test
+  hooks if factory override methods are ported.
+
+`createRandomStringsUsing*`, `createUuidsUsing*`, `freezeUuids`,
+`createUlidsUsing*`, `freezeUlids`
+: Test hooks and deterministic factories from Laravel's source. Port them only
+  if `random`, `uuid`, or `ulid` are included and tests need parity with
+  Laravel.
+
+`classBasename`
+: Requires Piper to implement the Laravel helper behavior internally instead of
+  depending on Laravel's global helper.
+
+`ascii`, `transliterate`, `slug`
+: Laravel uses `voku/portable-ascii`. Decide whether Piper accepts that
+  dependency, implements a smaller native approximation, or marks these as
+  intentionally different.
+
+`plural`, `pluralStudly`, `pluralPascal`, `singular`
+: Laravel behavior depends on Doctrine inflector through support internals.
+  Decide whether to add an inflector dependency or document a smaller English
+  inflection subset.
 
 ## Not Implemented Initially
 
@@ -458,6 +752,71 @@ Notes:
 - Higher-order collection syntax such as `$collection->map->name` is explicitly
   out of scope.
 
+For strings, these Laravel fluent features are not implemented initially.
+Dependency-heavy entries may be reconsidered, but `when*` conditionals are out
+of scope:
+
+```text
+Str::of
+str
+macro
+pipe
+dump
+ArrayAccess
+jsonSerialize
+__construct
+__get
+__toString
+Stringable object wrapper
+Conditionable
+Dumpable
+Macroable
+Tappable
+when
+whenContains
+whenContainsAll
+whenEmpty
+whenEndsWith
+whenExactly
+whenIs
+whenIsAscii
+whenIsUlid
+whenIsUuid
+whenNotEmpty
+whenNotExactly
+whenStartsWith
+whenTest
+markdown
+inlineMarkdown
+toHtmlString
+toDate
+encrypt
+decrypt
+hash
+toUri
+doesntEndWith
+doesntStartWith
+initials
+ucwords
+match
+whenDoesntEndWith
+whenDoesntStartWith
+```
+
+Notes:
+
+- Native PHP pipe makes `Stringable::pipe` redundant.
+- `Str::of`, `str()`, `__toString`, ArrayAccess, and `jsonSerialize` only make
+  sense when Piper has a string wrapper object, which is out of scope for the
+  first string port.
+- `dump` is framework/debug-helper behavior, not core string manipulation.
+- `match` exists upstream, but it collides with PHP's `match` keyword in a
+  function-only API.
+- `encrypt`, `decrypt`, `hash`, `toUri`, `doesntEndWith`, `doesntStartWith`,
+  `initials`, `ucwords`, `whenDoesntEndWith`, and `whenDoesntStartWith` are
+  listed in the docs' strings tables but were not present in the reviewed
+  `Str` / `Stringable` source.
+
 ## External Dependency Review
 
 Laravel collection behavior touches these external Laravel concepts:
@@ -480,6 +839,27 @@ PHP values. Anything requiring the Laravel container, macros, lazy collection
 classes, higher-order proxies, ArrayAccess, or object casting should stay out of
 scope for the first port.
 
+Laravel string behavior touches these additional external concepts:
+
+- `Illuminate\Support\Stringable`
+- `Illuminate\Support\Traits\Macroable`
+- `Illuminate\Support\Traits\Conditionable`
+- `Illuminate\Support\Traits\Dumpable`
+- `Illuminate\Support\Traits\Tappable`
+- `Illuminate\Support\Facades\Date`
+- `Illuminate\Contracts\Support\Htmlable`
+- `Illuminate\Support\HtmlString`
+- `League\CommonMark`
+- `Ramsey\Uuid`
+- `Symfony\Component\Uid\Ulid`
+- `voku\helper\ASCII`
+- Doctrine inflector behavior through Laravel's pluralizer
+- global helpers such as `class_basename`
+
+Piper should not depend on Laravel support, facades, or helper packages for
+strings. External dependencies should be deliberate, isolated, and justified by
+documented parity needs.
+
 ## Testing Strategy
 
 Use Pest from the Spatie skeleton. Port Laravel's
@@ -488,10 +868,11 @@ Use Pest from the Spatie skeleton. Port Laravel's
 Rules:
 
 - Public function tests must use the pipe operator.
+- Public string transformation tests must also use the pipe operator.
 - Do not call public transformation functions as normal direct functions in
   tests.
 - Constructor/source helpers may be called directly because they do not consume
-  a piped array.
+  a piped array or string.
 - Test internal functions only when the public API cannot expose a behavior
   directly.
 - Preserve Laravel's edge cases where Piper claims parity.
@@ -501,8 +882,8 @@ Rules:
 Example test style:
 
 ```php
-use function Spatie\Piper\filter;
-use function Spatie\Piper\map;
+use function Spatie\Piper\Arr\filter;
+use function Spatie\Piper\Arr\map;
 
 it('maps and filters values', function () {
     $result = [1, 2, 3]
@@ -531,6 +912,22 @@ Priority order:
    `replace`.
 7. Edge behavior and parity cases from Laravel's suite.
 
+String priority order:
+
+1. Core slicing and casing: `after`, `before`, `between`, `substr`, `take`,
+   `lower`, `upper`, `ucfirst`, `lcfirst`.
+2. Predicates: `contains`, `containsAll`, `startsWith`, `endsWith`, `is`,
+   `isJson`, `isUuid`, `isUlid`.
+3. Formatting: `squish`, `trim`, `deduplicate`, `limit`, `words`, `mask`,
+   `padLeft`, `padRight`, `padBoth`.
+4. Naming conversions: `camel`, `snake`, `kebab`, `studly`, `headline`,
+   `title`, `apa`.
+5. Replacement and regex: `replace`, `replaceFirst`, `replaceLast`,
+   `replaceMatches`, `replaceArray`, `match`, `matchAll`, `scan`.
+6. Source/random helpers: `random`, `password`, `uuid`, `uuid7`, `ulid`.
+7. Dependency-heavy methods once decisions are made: `ascii`, `transliterate`,
+   `slug`, `plural`, `singular`, `markdown`, `inlineMarkdown`, `toDate`.
+
 ## README Strategy
 
 Use Laravel's collection documentation as the base structure and adapt every
@@ -540,17 +937,23 @@ Documentation rules:
 
 - Include attribution to Laravel's MIT licensed documentation.
 - Replace `collect([...])->method(...)` examples with pipe chains.
-- Use `use function Spatie\Piper\...` imports in examples.
+- Use `use function Spatie\Piper\Arr\...` imports in examples.
 - Call out that Piper returns plain arrays, not collection objects.
 - Call out that functions with options return closures for pipe compatibility.
 - Include a "Not implemented" section matching this plan.
 - Do not document higher-order collection messages or lazy collections yet.
+- Add a strings section based on Laravel's strings documentation once the
+  `Spatie\Piper\Str` API stabilizes.
+- Replace `Str::of('...')->method(...)` examples with plain string pipe chains.
+- Use `use function Spatie\Piper\Str\...` imports in string examples.
+- Call out that Piper returns plain strings, arrays, booleans, and scalars
+  rather than `Stringable` objects.
 
 Example conversion:
 
 ```php
-use function Spatie\Piper\map;
-use function Spatie\Piper\reject;
+use function Spatie\Piper\Arr\map;
+use function Spatie\Piper\Arr\reject;
 
 $result = ['Taylor', 'Abigail', null]
     |> map(fn (?string $name): ?string => $name === null ? null : strtoupper($name))
@@ -569,8 +972,14 @@ $result = ['Taylor', 'Abigail', null]
 6. Add Pest tests that use `|>`.
 7. Port Laravel tests method-by-method.
 8. Implement the remaining methods in dependency order.
-9. Write README examples as methods stabilize.
-10. Run the full test suite, static analysis, and formatting.
+9. Add `src/Str` autoloading and implement a small string vertical slice:
+   `after`, `before`, `contains`, `squish`, `headline`, `replace`, `trim`.
+10. Port Laravel string tests method-by-method, starting with dependency-free
+    methods.
+11. Decide dependency-heavy string methods and implement them only after the
+    dependency policy is explicit.
+12. Write README examples as methods stabilize.
+13. Run the full test suite, static analysis, and formatting.
 
 ## Open Risks
 
@@ -586,3 +995,9 @@ $result = ['Taylor', 'Abigail', null]
   natural sorting, key preservation, and multi-sort behavior are easy to drift.
 - Methods that return random values or depend on side effects need careful,
   deterministic tests.
+- String parity can pull in more dependencies than arrays: Markdown, UUID/ULID,
+  transliteration, inflection, and dates should not become runtime dependencies
+  by accident.
+- Laravel's strings docs and `Stringable` source currently disagree on some
+  fluent methods. Treat the source as the implementation baseline and document
+  intentional doc-only omissions.

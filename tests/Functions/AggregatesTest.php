@@ -1,16 +1,16 @@
 <?php
 
-use function Spatie\Piper\average;
-use function Spatie\Piper\avg;
-use function Spatie\Piper\countBy;
-use function Spatie\Piper\max;
-use function Spatie\Piper\median;
-use function Spatie\Piper\min;
-use function Spatie\Piper\mode;
-use function Spatie\Piper\percentage;
-use function Spatie\Piper\reduce;
-use function Spatie\Piper\reduceSpread;
-use function Spatie\Piper\sum;
+use function Spatie\Piper\Arr\average;
+use function Spatie\Piper\Arr\avg;
+use function Spatie\Piper\Arr\countBy;
+use function Spatie\Piper\Arr\max;
+use function Spatie\Piper\Arr\median;
+use function Spatie\Piper\Arr\min;
+use function Spatie\Piper\Arr\mode;
+use function Spatie\Piper\Arr\percentage;
+use function Spatie\Piper\Arr\reduce;
+use function Spatie\Piper\Arr\reduceSpread;
+use function Spatie\Piper\Arr\sum;
 
 it('calculates numeric aggregates', function () {
     $items = [

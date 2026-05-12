@@ -1,33 +1,33 @@
 <?php
 
-use Spatie\Piper\ItemNotFoundException;
-use Spatie\Piper\MultipleItemsFoundException;
+use Spatie\Piper\Exceptions\ItemNotFoundException;
+use Spatie\Piper\Exceptions\MultipleItemsFoundException;
 
-use function Spatie\Piper\after;
-use function Spatie\Piper\all;
-use function Spatie\Piper\before;
-use function Spatie\Piper\contains;
-use function Spatie\Piper\containsStrict;
-use function Spatie\Piper\count;
-use function Spatie\Piper\doesntContain;
-use function Spatie\Piper\every;
-use function Spatie\Piper\filter;
-use function Spatie\Piper\first;
-use function Spatie\Piper\firstOrFail;
-use function Spatie\Piper\get;
-use function Spatie\Piper\has;
-use function Spatie\Piper\hasAny;
-use function Spatie\Piper\hasMany;
-use function Spatie\Piper\hasSole;
-use function Spatie\Piper\isEmpty;
-use function Spatie\Piper\isNotEmpty;
-use function Spatie\Piper\last;
-use function Spatie\Piper\map;
-use function Spatie\Piper\reject;
-use function Spatie\Piper\search;
-use function Spatie\Piper\sole;
-use function Spatie\Piper\some;
-use function Spatie\Piper\values;
+use function Spatie\Piper\Arr\after;
+use function Spatie\Piper\Arr\all;
+use function Spatie\Piper\Arr\before;
+use function Spatie\Piper\Arr\contains;
+use function Spatie\Piper\Arr\containsStrict;
+use function Spatie\Piper\Arr\count;
+use function Spatie\Piper\Arr\doesntContain;
+use function Spatie\Piper\Arr\every;
+use function Spatie\Piper\Arr\filter;
+use function Spatie\Piper\Arr\first;
+use function Spatie\Piper\Arr\firstOrFail;
+use function Spatie\Piper\Arr\get;
+use function Spatie\Piper\Arr\has;
+use function Spatie\Piper\Arr\hasAny;
+use function Spatie\Piper\Arr\hasMany;
+use function Spatie\Piper\Arr\hasSole;
+use function Spatie\Piper\Arr\isEmpty;
+use function Spatie\Piper\Arr\isNotEmpty;
+use function Spatie\Piper\Arr\last;
+use function Spatie\Piper\Arr\map;
+use function Spatie\Piper\Arr\reject;
+use function Spatie\Piper\Arr\search;
+use function Spatie\Piper\Arr\sole;
+use function Spatie\Piper\Arr\some;
+use function Spatie\Piper\Arr\values;
 
 it('maps filters rejects and resets values through the pipe operator', function () {
     $result = [1, 2, 3, 4]

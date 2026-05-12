@@ -7,9 +7,9 @@ Instead of wrapping values in a `Collection` object, Piper exposes namespaced
 functions that return one-argument callables for PHP 8.5's native pipe operator:
 
 ```php
-use function Spatie\Piper\filter;
-use function Spatie\Piper\map;
-use function Spatie\Piper\values;
+use function Spatie\Piper\Arr\filter;
+use function Spatie\Piper\Arr\map;
+use function Spatie\Piper\Arr\values;
 
 $result = [1, 2, 3, 4]
     |> map(fn (int $value): int => $value * 2)
@@ -21,8 +21,11 @@ $result = [1, 2, 3, 4]
 
 Piper is inspired by Laravel's MIT licensed collection documentation and source,
 but it returns plain arrays and values instead of collection instances. Public
-function files contain the pipe-facing API and implementation directly; only
-small shared primitives live in `src/Functions/support.php`.
+function files contain the pipe-facing API and implementation directly; shared
+primitives live as namespaced support functions in `src/Support`.
+
+Piper also includes a pipe-native subset of Laravel's fluent string API under
+the `Spatie\Piper\Str` namespace.
 
 ## Installation
 
@@ -37,11 +40,11 @@ Piper requires PHP 8.5 or newer.
 Import the functions you need:
 
 ```php
-use function Spatie\Piper\groupBy;
-use function Spatie\Piper\map;
-use function Spatie\Piper\pluck;
-use function Spatie\Piper\sortBy;
-use function Spatie\Piper\values;
+use function Spatie\Piper\Arr\groupBy;
+use function Spatie\Piper\Arr\map;
+use function Spatie\Piper\Arr\pluck;
+use function Spatie\Piper\Arr\sortBy;
+use function Spatie\Piper\Arr\values;
 ```
 
 Then pipe arrays through them:
@@ -60,11 +63,26 @@ $names = $users
 // ['Jess', 'Abigail', 'Taylor']
 ```
 
+Strings work the same way:
+
+```php
+use function Spatie\Piper\Str\after;
+use function Spatie\Piper\Str\headline;
+use function Spatie\Piper\Str\squish;
+
+$title = 'posts: writing clean pipelines'
+    |> after('posts:')
+    |> squish()
+    |> headline();
+
+// 'Writing Clean Pipelines'
+```
+
 Functions that create arrays are called directly:
 
 ```php
-use function Spatie\Piper\range;
-use function Spatie\Piper\times;
+use function Spatie\Piper\Arr\range;
+use function Spatie\Piper\Arr\times;
 
 $numbers = range(1, 5);
 $squares = times(5, fn (int $number): int => $number ** 2);
@@ -97,6 +115,27 @@ whereStrict, whereBetween, whereIn, whereInStrict, whereInstanceOf,
 whereNotBetween, whereNotIn, whereNotInStrict, whereNotNull, whereNull, wrap,
 zip
 ```
+
+Piper's string API includes the dependency-free parts of Laravel's `Str` and
+`Stringable` APIs:
+
+```text
+after, afterLast, append, before, beforeLast, between, betweenFirst, camel,
+charAt, contains, deduplicate, endsWith, exactly, explode, finish, fromBase64,
+headline, is, isAscii, isEmpty, isJson, isMatch, isNotEmpty, isUlid, isUuid,
+kebab, lcfirst, length, limit, lower, ltrim, mask, matchAll, newLine, numbers,
+padBoth, padLeft, padRight, password, position, prepend, random, remove, repeat,
+replace, replaceArray, replaceEnd, replaceFirst, replaceLast, replaceMatches,
+replaceStart, reverse, rtrim, scan, snake, split, squish, start, startsWith,
+stripTags, studly, substr, substrCount, substrReplace, swap, take, test, title,
+toBase64, toBoolean, toFloat, toInteger, toString, trim, ucfirst, unwrap, upper,
+value, wordCount, wordWrap, words, wrap
+```
+
+Dependency-heavy string helpers such as Markdown rendering, transliteration,
+inflection, date parsing, and UUID/ULID object generation are intentionally not
+included yet. Laravel's `match` method is also not exposed as a function because
+`match` is a PHP reserved keyword.
 
 ## Differences from Laravel Collections
 

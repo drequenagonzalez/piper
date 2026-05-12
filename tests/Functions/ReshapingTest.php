@@ -1,26 +1,26 @@
 <?php
 
-use function Spatie\Piper\chunk;
-use function Spatie\Piper\chunkWhile;
-use function Spatie\Piper\collapse;
-use function Spatie\Piper\collapseWithKeys;
-use function Spatie\Piper\combine;
-use function Spatie\Piper\crossJoin;
-use function Spatie\Piper\dot;
-use function Spatie\Piper\flatMap;
-use function Spatie\Piper\flatten;
-use function Spatie\Piper\flip;
-use function Spatie\Piper\keys;
-use function Spatie\Piper\mapSpread;
-use function Spatie\Piper\mapToDictionary;
-use function Spatie\Piper\mapToGroups;
-use function Spatie\Piper\mapWithKeys;
-use function Spatie\Piper\partition;
-use function Spatie\Piper\sliding;
-use function Spatie\Piper\split;
-use function Spatie\Piper\splitIn;
-use function Spatie\Piper\undot;
-use function Spatie\Piper\zip;
+use function Spatie\Piper\Arr\chunk;
+use function Spatie\Piper\Arr\chunkWhile;
+use function Spatie\Piper\Arr\collapse;
+use function Spatie\Piper\Arr\collapseWithKeys;
+use function Spatie\Piper\Arr\combine;
+use function Spatie\Piper\Arr\crossJoin;
+use function Spatie\Piper\Arr\dot;
+use function Spatie\Piper\Arr\flatMap;
+use function Spatie\Piper\Arr\flatten;
+use function Spatie\Piper\Arr\flip;
+use function Spatie\Piper\Arr\keys;
+use function Spatie\Piper\Arr\mapSpread;
+use function Spatie\Piper\Arr\mapToDictionary;
+use function Spatie\Piper\Arr\mapToGroups;
+use function Spatie\Piper\Arr\mapWithKeys;
+use function Spatie\Piper\Arr\partition;
+use function Spatie\Piper\Arr\sliding;
+use function Spatie\Piper\Arr\split;
+use function Spatie\Piper\Arr\splitIn;
+use function Spatie\Piper\Arr\undot;
+use function Spatie\Piper\Arr\zip;
 
 it('chunks collapses and flattens arrays', function () {
     expect([1, 2, 3, 4, 5] |> chunk(2))->toBe([[1, 2], [3, 4], [5]]);

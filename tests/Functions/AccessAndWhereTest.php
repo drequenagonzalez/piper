@@ -1,20 +1,20 @@
 <?php
 
-use function Spatie\Piper\firstWhere;
-use function Spatie\Piper\get;
-use function Spatie\Piper\groupBy;
-use function Spatie\Piper\keyBy;
-use function Spatie\Piper\pluck;
-use function Spatie\Piper\select;
-use function Spatie\Piper\value;
-use function Spatie\Piper\where;
-use function Spatie\Piper\whereBetween;
-use function Spatie\Piper\whereIn;
-use function Spatie\Piper\whereInstanceOf;
-use function Spatie\Piper\whereNotBetween;
-use function Spatie\Piper\whereNotIn;
-use function Spatie\Piper\whereNotNull;
-use function Spatie\Piper\whereNull;
+use function Spatie\Piper\Arr\firstWhere;
+use function Spatie\Piper\Arr\get;
+use function Spatie\Piper\Arr\groupBy;
+use function Spatie\Piper\Arr\keyBy;
+use function Spatie\Piper\Arr\pluck;
+use function Spatie\Piper\Arr\select;
+use function Spatie\Piper\Arr\value;
+use function Spatie\Piper\Arr\where;
+use function Spatie\Piper\Arr\whereBetween;
+use function Spatie\Piper\Arr\whereIn;
+use function Spatie\Piper\Arr\whereInstanceOf;
+use function Spatie\Piper\Arr\whereNotBetween;
+use function Spatie\Piper\Arr\whereNotIn;
+use function Spatie\Piper\Arr\whereNotNull;
+use function Spatie\Piper\Arr\whereNull;
 
 it('plucks values with dot notation and optional keys', function () {
     $items = [
