@@ -1,6 +1,6 @@
 {
     "name": "spatie/piper",
-    "description": "Pipe-native plain array functions inspired by Laravel collections.",
+    "description": "A pipe operator-first PHP utility library for array and string manipulation",
     "keywords": [
         "spatie",
         "piper",
@@ -44,10 +44,11 @@
         }
     },
     "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
         "benchmark": "php benchmarks/map.php",
         "test": "vendor/bin/pest",
-        "format": "vendor/bin/pint",
-        "analyse": "vendor/bin/phpstan analyse"
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,
