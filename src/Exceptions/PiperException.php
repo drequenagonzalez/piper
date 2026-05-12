@@ -4,7 +4,4 @@ namespace Spatie\Piper\Exceptions;
 
 use RuntimeException;
 
-class PiperException extends RuntimeException
-{
-
-}
+class PiperException extends RuntimeException {}
