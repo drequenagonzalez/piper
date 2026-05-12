@@ -1920,6 +1920,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
+Piper is a port of Laravel's collection & string helpers. All methods, tests, and documentation examples are derived from the Laravel source. The porting strategy is described in [PORT.md](https://github.com/spatie/piper/blob/main/PORT.md).
+
 - [Sebastian De Deyne](https://github.com/sebastiandedeyne)
 - [All Contributors](../../contributors)
 

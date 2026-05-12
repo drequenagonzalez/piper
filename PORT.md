@@ -863,10 +863,11 @@ documented parity needs.
 ## Testing Strategy
 
 Use Pest from the Spatie skeleton. Port Laravel's
-`SupportCollectionTest.php` test cases into Piper's API.
+`SupportCollectionTest.php` & `SupportStrTest.php` test cases into Piper's API.
 
 Rules:
 
+- One file per method to test, mirror the structure of `src` (`tests/Arr/AfterTest.php`)
 - Public function tests must use the pipe operator.
 - Public string transformation tests must also use the pipe operator.
 - Do not call public transformation functions as normal direct functions in
@@ -896,37 +897,6 @@ it('maps and filters values', function () {
 
 Create one focused test file per public function where practical. Some aliases
 or tightly coupled methods can share files, for example `avg` and `average`.
-
-Priority order:
-
-1. Core traversal and selection: `map`, `filter`, `reject`, `values`, `keys`,
-   `first`, `last`, `get`, `has`.
-2. Data access and where helpers: `pluck`, `where`, `whereIn`, `whereBetween`,
-   `firstWhere`, `value`.
-3. Aggregates: `count`, `sum`, `avg`, `min`, `max`, `median`, `mode`,
-   `percentage`.
-4. Reshaping: `chunk`, `collapse`, `flatten`, `groupBy`, `keyBy`, `partition`,
-   `mapWithKeys`, `mapToGroups`.
-5. Sorting and uniqueness: `sort`, `sortBy`, `unique`, `duplicates`.
-6. Set operations and merging: `diff`, `intersect`, `merge`, `union`,
-   `replace`.
-7. Edge behavior and parity cases from Laravel's suite.
-
-String priority order:
-
-1. Core slicing and casing: `after`, `before`, `between`, `substr`, `take`,
-   `lower`, `upper`, `ucfirst`, `lcfirst`.
-2. Predicates: `contains`, `containsAll`, `startsWith`, `endsWith`, `is`,
-   `isJson`, `isUuid`, `isUlid`.
-3. Formatting: `squish`, `trim`, `deduplicate`, `limit`, `words`, `mask`,
-   `padLeft`, `padRight`, `padBoth`.
-4. Naming conversions: `camel`, `snake`, `kebab`, `studly`, `headline`,
-   `title`, `apa`.
-5. Replacement and regex: `replace`, `replaceFirst`, `replaceLast`,
-   `replaceMatches`, `replaceArray`, `match`, `matchAll`, `scan`.
-6. Source/random helpers: `random`, `password`, `uuid`, `uuid7`, `ulid`.
-7. Dependency-heavy methods once decisions are made: `ascii`, `transliterate`,
-   `slug`, `plural`, `singular`, `markdown`, `inlineMarkdown`, `toDate`.
 
 ## README Strategy
 
