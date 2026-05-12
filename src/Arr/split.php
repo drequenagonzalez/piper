@@ -17,7 +17,7 @@ function split(int $numberOfGroups): Closure
         }
 
         $groups = [];
-        $groupSize = floor(\count($items) / $numberOfGroups);
+        $groupSize = intdiv(\count($items), $numberOfGroups);
         $remain = \count($items) % $numberOfGroups;
         $start = 0;
 
