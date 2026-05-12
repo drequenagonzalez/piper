@@ -4,4 +4,7 @@ namespace Spatie\Piper\Exceptions;
 
 use RuntimeException;
 
-class ItemNotFoundException extends RuntimeException {}
+class PiperException extends RuntimeException
+{
+
+}

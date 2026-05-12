@@ -1,7 +1,7 @@
 <?php
 
-use Spatie\Piper\Exceptions\ItemNotFoundException;
-use Spatie\Piper\Exceptions\MultipleItemsFoundException;
+use Spatie\Piper\Exceptions\ItemNotFound;
+use Spatie\Piper\Exceptions\MultipleItemsFound;
 
 use function Spatie\Piper\Arr\after;
 use function Spatie\Piper\Arr\before;
@@ -77,7 +77,7 @@ it('finds neighboring values and search keys', function () {
 });
 
 it('throws when sole and firstOrFail cannot resolve exactly', function () {
-    expect(fn () => [] |> firstOrFail())->toThrow(ItemNotFoundException::class);
-    expect(fn () => [] |> sole())->toThrow(ItemNotFoundException::class);
-    expect(fn () => [1, 2] |> sole())->toThrow(MultipleItemsFoundException::class);
+    expect(fn () => [] |> firstOrFail())->toThrow(ItemNotFound::class);
+    expect(fn () => [] |> sole())->toThrow(ItemNotFound::class);
+    expect(fn () => [1, 2] |> sole())->toThrow(MultipleItemsFound::class);
 });

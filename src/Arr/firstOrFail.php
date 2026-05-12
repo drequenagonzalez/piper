@@ -3,7 +3,7 @@
 namespace Spatie\Piper\Arr;
 
 use Closure;
-use Spatie\Piper\Exceptions\ItemNotFoundException;
+use Spatie\Piper\Exceptions\ItemNotFound;
 
 function firstOrFail(?callable $callback = null): Closure
 {
@@ -12,7 +12,7 @@ function firstOrFail(?callable $callback = null): Closure
         $result = ($items |> first($callback, $marker));
 
         if ($result === $marker) {
-            throw new ItemNotFoundException;
+            throw new ItemNotFound;
         }
 
         return $result;
