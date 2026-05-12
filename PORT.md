@@ -54,6 +54,8 @@ use function Spatie\Piper\Arr\map;
   example `after(string $search): Closure`.
 - String source helpers that do not consume a piped string may return values
   directly, for example `random(16)`, `uuid()`, or `password()`.
+- Passthrough helpers that only return the piped value unchanged are out of
+  scope. Do not port `Spatie\Piper\Arr\all` or `Spatie\Piper\Str\value`.
 - Implementations are inline in the public function files. Small shared helper
   functions for behavior like dot access and callback normalization live in
   `src/Support`.
@@ -259,7 +261,6 @@ plain arrays:
 
 ```text
 after
-all
 average
 avg
 before
@@ -525,7 +526,6 @@ ucsplit
 ulid
 unwrap
 upper
-value
 uuid
 uuid7
 wordCount
@@ -578,9 +578,9 @@ whenDoesntStartWith
 
 ## Semantic Notes
 
-`all`
-: Returns the input array unchanged. It exists for parity, though most Piper
-  chains naturally end with a plain array already.
+`all`, `Str\value`
+: Do not implement. They are passthrough helpers that return the piped value
+  unchanged, which makes them redundant in Piper chains.
 
 `make`, `wrap`, `unwrap`, `range`, `times`, `fromJson`, `empty`
 : These are source/constructor helpers. They should return arrays directly

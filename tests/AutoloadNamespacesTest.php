@@ -13,3 +13,8 @@ it('autoloads array support functions and exceptions from their new namespaces',
     expect(ItemNotFoundException::class)->toBe('Spatie\\Piper\\Exceptions\\ItemNotFoundException');
     expect(MultipleItemsFoundException::class)->toBe('Spatie\\Piper\\Exceptions\\MultipleItemsFoundException');
 });
+
+it('does not expose passthrough helpers that are useless in pipelines', function () {
+    expect(function_exists('Spatie\\Piper\\Arr\\all'))->toBeFalse();
+    expect(function_exists('Spatie\\Piper\\Str\\value'))->toBeFalse();
+});

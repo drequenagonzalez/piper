@@ -4,7 +4,6 @@ use Spatie\Piper\Exceptions\ItemNotFoundException;
 use Spatie\Piper\Exceptions\MultipleItemsFoundException;
 
 use function Spatie\Piper\Arr\after;
-use function Spatie\Piper\Arr\all;
 use function Spatie\Piper\Arr\before;
 use function Spatie\Piper\Arr\contains;
 use function Spatie\Piper\Arr\containsStrict;
@@ -39,13 +38,12 @@ it('maps filters rejects and resets values through the pipe operator', function 
     expect($result)->toBe([4, 16]);
 });
 
-it('reads first last get and all values', function () {
+it('reads first last and get values', function () {
     $items = ['first' => 'Taylor', 'second' => 'Abigail'];
 
     expect($items |> first())->toBe('Taylor');
     expect($items |> last())->toBe('Abigail');
     expect($items |> get('missing', 'fallback'))->toBe('fallback');
-    expect($items |> all())->toBe($items);
 });
 
 it('checks containment and keys', function () {
