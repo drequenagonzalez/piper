@@ -11,46 +11,48 @@ use function Spatie\Piper\Arr\{filter, map, values};
 
 Each function takes its subject as the first argument, so it slots naturally into a pipe. The reference below lists every available function in alphabetical order. Click a name to jump straight to its description.
 
-| | | | |
-|---|---|---|---|
-| [after](#content-after) | [forPage](#content-forpage) | [pad](#content-pad) | [splitIn](#content-splitin) |
-| [average](#content-average) | [forget](#content-forget) | [partition](#content-partition) | [sum](#content-sum) |
-| [avg](#content-avg) | [fromJson](#content-fromjson) | [percentage](#content-percentage) | [take](#content-take) |
-| [before](#content-before) | [get](#content-get) | [pluck](#content-pluck) | [takeUntil](#content-takeuntil) |
-| [chunk](#content-chunk) | [getOrPut](#content-getorput) | [pop](#content-pop) | [takeWhile](#content-takewhile) |
-| [chunkWhile](#content-chunkwhile) | [groupBy](#content-groupby) | [prepend](#content-prepend) | [tap](#content-tap) |
-| [collapse](#content-collapse) | [has](#content-has) | [pull](#content-pull) | [times](#content-times) |
-| [collapseWithKeys](#content-collapsewithkeys) | [hasAny](#content-hasany) | [push](#content-push) | [toArray](#content-toarray) |
-| [combine](#content-combine) | [hasMany](#content-hasmany) | [put](#content-put) | [toJson](#content-tojson) |
-| [concat](#content-concat) | [hasSole](#content-hassole) | [random](#content-random) | [toPrettyJson](#content-toprettyjson) |
-| [contains](#content-contains) | [implode](#content-implode) | [range](#content-range) | [transform](#content-transform) |
-| [containsStrict](#content-containsstrict) | [intersect](#content-intersect) | [reduce](#content-reduce) | [undot](#content-undot) |
-| [count](#content-count) | [intersectAssoc](#content-intersectassoc) | [reduceSpread](#content-reducespread) | [union](#content-union) |
-| [countBy](#content-countby) | [intersectAssocUsing](#content-intersectassocusing) | [reduceWithKeys](#content-reducewithkeys) | [unique](#content-unique) |
-| [crossJoin](#content-crossjoin) | [intersectByKeys](#content-intersectbykeys) | [reject](#content-reject) | [uniqueStrict](#content-uniquestrict) |
-| [diff](#content-diff) | [intersectUsing](#content-intersectusing) | [replace](#content-replace) | [unless](#content-unless) |
-| [diffAssoc](#content-diffassoc) | [isEmpty](#content-isempty) | [replaceRecursive](#content-replacerecursive) | [unlessEmpty](#content-unlessempty) |
-| [diffAssocUsing](#content-diffassocusing) | [isNotEmpty](#content-isnotempty) | [reverse](#content-reverse) | [unlessNotEmpty](#content-unlessnotempty) |
-| [diffKeys](#content-diffkeys) | [join](#content-join) | [search](#content-search) | [unwrap](#content-unwrap) |
-| [diffKeysUsing](#content-diffkeysusing) | [keyBy](#content-keyby) | [select](#content-select) | [value](#content-value) |
-| [diffUsing](#content-diffusing) | [keys](#content-keys) | [shift](#content-shift) | [values](#content-values) |
-| [doesntContain](#content-doesntcontain) | [last](#content-last) | [shuffle](#content-shuffle) | [when](#content-when) |
-| [doesntContainStrict](#content-doesntcontainstrict) | [make](#content-make) | [skip](#content-skip) | [whenEmpty](#content-whenempty) |
-| [dot](#content-dot) | [map](#content-map) | [skipUntil](#content-skipuntil) | [whenNotEmpty](#content-whennotempty) |
-| [duplicates](#content-duplicates) | [mapInto](#content-mapinto) | [skipWhile](#content-skipwhile) | [where](#content-where) |
-| [duplicatesStrict](#content-duplicatesstrict) | [mapSpread](#content-mapspread) | [slice](#content-slice) | [whereBetween](#content-wherebetween) |
-| [each](#content-each) | [mapToDictionary](#content-maptodictionary) | [sliding](#content-sliding) | [whereIn](#content-wherein) |
-| [eachSpread](#content-eachspread) | [mapToGroups](#content-maptogroups) | [sole](#content-sole) | [whereInStrict](#content-whereinstrict) |
-| [ensure](#content-ensure) | [mapWithKeys](#content-mapwithkeys) | [some](#content-some) | [whereInstanceOf](#content-whereinstanceof) |
-| [every](#content-every) | [max](#content-max) | [sort](#content-sort) | [whereNotBetween](#content-wherenotbetween) |
-| [except](#content-except) | [median](#content-median) | [sortBy](#content-sortby) | [whereNotIn](#content-wherenotin) |
-| [filter](#content-filter) | [merge](#content-merge) | [sortByDesc](#content-sortbydesc) | [whereNotInStrict](#content-wherenotinstrict) |
-| [first](#content-first) | [mergeRecursive](#content-mergerecursive) | [sortDesc](#content-sortdesc) | [whereNotNull](#content-wherenotnull) |
-| [firstOrFail](#content-firstorfail) | [min](#content-min) | [sortKeys](#content-sortkeys) | [whereNull](#content-wherenull) |
-| [firstWhere](#content-firstwhere) | [mode](#content-mode) | [sortKeysDesc](#content-sortkeysdesc) | [whereStrict](#content-wherestrict) |
-| [flatMap](#content-flatmap) | [multiply](#content-multiply) | [sortKeysUsing](#content-sortkeysusing) | [wrap](#content-wrap) |
-| [flatten](#content-flatten) | [nth](#content-nth) | [splice](#content-splice) | [zip](#content-zip) |
-| [flip](#content-flip) | [only](#content-only) | [split](#content-split) |  |
+<table style="font-size: 1.1em;">
+<tbody>
+<tr><td><a href="#content-after">after</a></td><td><a href="#content-forpage">forPage</a></td><td><a href="#content-pad">pad</a></td><td><a href="#content-splitin">splitIn</a></td></tr>
+<tr><td><a href="#content-average">average</a></td><td><a href="#content-forget">forget</a></td><td><a href="#content-partition">partition</a></td><td><a href="#content-sum">sum</a></td></tr>
+<tr><td><a href="#content-avg">avg</a></td><td><a href="#content-fromjson">fromJson</a></td><td><a href="#content-percentage">percentage</a></td><td><a href="#content-take">take</a></td></tr>
+<tr><td><a href="#content-before">before</a></td><td><a href="#content-get">get</a></td><td><a href="#content-pluck">pluck</a></td><td><a href="#content-takeuntil">takeUntil</a></td></tr>
+<tr><td><a href="#content-chunk">chunk</a></td><td><a href="#content-getorput">getOrPut</a></td><td><a href="#content-pop">pop</a></td><td><a href="#content-takewhile">takeWhile</a></td></tr>
+<tr><td><a href="#content-chunkwhile">chunkWhile</a></td><td><a href="#content-groupby">groupBy</a></td><td><a href="#content-prepend">prepend</a></td><td><a href="#content-tap">tap</a></td></tr>
+<tr><td><a href="#content-collapse">collapse</a></td><td><a href="#content-has">has</a></td><td><a href="#content-pull">pull</a></td><td><a href="#content-times">times</a></td></tr>
+<tr><td><a href="#content-collapsewithkeys">collapseWithKeys</a></td><td><a href="#content-hasany">hasAny</a></td><td><a href="#content-push">push</a></td><td><a href="#content-toarray">toArray</a></td></tr>
+<tr><td><a href="#content-combine">combine</a></td><td><a href="#content-hasmany">hasMany</a></td><td><a href="#content-put">put</a></td><td><a href="#content-tojson">toJson</a></td></tr>
+<tr><td><a href="#content-concat">concat</a></td><td><a href="#content-hassole">hasSole</a></td><td><a href="#content-random">random</a></td><td><a href="#content-toprettyjson">toPrettyJson</a></td></tr>
+<tr><td><a href="#content-contains">contains</a></td><td><a href="#content-implode">implode</a></td><td><a href="#content-range">range</a></td><td><a href="#content-transform">transform</a></td></tr>
+<tr><td><a href="#content-containsstrict">containsStrict</a></td><td><a href="#content-intersect">intersect</a></td><td><a href="#content-reduce">reduce</a></td><td><a href="#content-undot">undot</a></td></tr>
+<tr><td><a href="#content-count">count</a></td><td><a href="#content-intersectassoc">intersectAssoc</a></td><td><a href="#content-reducespread">reduceSpread</a></td><td><a href="#content-union">union</a></td></tr>
+<tr><td><a href="#content-countby">countBy</a></td><td><a href="#content-intersectassocusing">intersectAssocUsing</a></td><td><a href="#content-reducewithkeys">reduceWithKeys</a></td><td><a href="#content-unique">unique</a></td></tr>
+<tr><td><a href="#content-crossjoin">crossJoin</a></td><td><a href="#content-intersectbykeys">intersectByKeys</a></td><td><a href="#content-reject">reject</a></td><td><a href="#content-uniquestrict">uniqueStrict</a></td></tr>
+<tr><td><a href="#content-diff">diff</a></td><td><a href="#content-intersectusing">intersectUsing</a></td><td><a href="#content-replace">replace</a></td><td><a href="#content-unless">unless</a></td></tr>
+<tr><td><a href="#content-diffassoc">diffAssoc</a></td><td><a href="#content-isempty">isEmpty</a></td><td><a href="#content-replacerecursive">replaceRecursive</a></td><td><a href="#content-unlessempty">unlessEmpty</a></td></tr>
+<tr><td><a href="#content-diffassocusing">diffAssocUsing</a></td><td><a href="#content-isnotempty">isNotEmpty</a></td><td><a href="#content-reverse">reverse</a></td><td><a href="#content-unlessnotempty">unlessNotEmpty</a></td></tr>
+<tr><td><a href="#content-diffkeys">diffKeys</a></td><td><a href="#content-join">join</a></td><td><a href="#content-search">search</a></td><td><a href="#content-unwrap">unwrap</a></td></tr>
+<tr><td><a href="#content-diffkeysusing">diffKeysUsing</a></td><td><a href="#content-keyby">keyBy</a></td><td><a href="#content-select">select</a></td><td><a href="#content-value">value</a></td></tr>
+<tr><td><a href="#content-diffusing">diffUsing</a></td><td><a href="#content-keys">keys</a></td><td><a href="#content-shift">shift</a></td><td><a href="#content-values">values</a></td></tr>
+<tr><td><a href="#content-doesntcontain">doesntContain</a></td><td><a href="#content-last">last</a></td><td><a href="#content-shuffle">shuffle</a></td><td><a href="#content-when">when</a></td></tr>
+<tr><td><a href="#content-doesntcontainstrict">doesntContainStrict</a></td><td><a href="#content-make">make</a></td><td><a href="#content-skip">skip</a></td><td><a href="#content-whenempty">whenEmpty</a></td></tr>
+<tr><td><a href="#content-dot">dot</a></td><td><a href="#content-map">map</a></td><td><a href="#content-skipuntil">skipUntil</a></td><td><a href="#content-whennotempty">whenNotEmpty</a></td></tr>
+<tr><td><a href="#content-duplicates">duplicates</a></td><td><a href="#content-mapinto">mapInto</a></td><td><a href="#content-skipwhile">skipWhile</a></td><td><a href="#content-where">where</a></td></tr>
+<tr><td><a href="#content-duplicatesstrict">duplicatesStrict</a></td><td><a href="#content-mapspread">mapSpread</a></td><td><a href="#content-slice">slice</a></td><td><a href="#content-wherebetween">whereBetween</a></td></tr>
+<tr><td><a href="#content-each">each</a></td><td><a href="#content-maptodictionary">mapToDictionary</a></td><td><a href="#content-sliding">sliding</a></td><td><a href="#content-wherein">whereIn</a></td></tr>
+<tr><td><a href="#content-eachspread">eachSpread</a></td><td><a href="#content-maptogroups">mapToGroups</a></td><td><a href="#content-sole">sole</a></td><td><a href="#content-whereinstrict">whereInStrict</a></td></tr>
+<tr><td><a href="#content-ensure">ensure</a></td><td><a href="#content-mapwithkeys">mapWithKeys</a></td><td><a href="#content-some">some</a></td><td><a href="#content-whereinstanceof">whereInstanceOf</a></td></tr>
+<tr><td><a href="#content-every">every</a></td><td><a href="#content-max">max</a></td><td><a href="#content-sort">sort</a></td><td><a href="#content-wherenotbetween">whereNotBetween</a></td></tr>
+<tr><td><a href="#content-except">except</a></td><td><a href="#content-median">median</a></td><td><a href="#content-sortby">sortBy</a></td><td><a href="#content-wherenotin">whereNotIn</a></td></tr>
+<tr><td><a href="#content-filter">filter</a></td><td><a href="#content-merge">merge</a></td><td><a href="#content-sortbydesc">sortByDesc</a></td><td><a href="#content-wherenotinstrict">whereNotInStrict</a></td></tr>
+<tr><td><a href="#content-first">first</a></td><td><a href="#content-mergerecursive">mergeRecursive</a></td><td><a href="#content-sortdesc">sortDesc</a></td><td><a href="#content-wherenotnull">whereNotNull</a></td></tr>
+<tr><td><a href="#content-firstorfail">firstOrFail</a></td><td><a href="#content-min">min</a></td><td><a href="#content-sortkeys">sortKeys</a></td><td><a href="#content-wherenull">whereNull</a></td></tr>
+<tr><td><a href="#content-firstwhere">firstWhere</a></td><td><a href="#content-mode">mode</a></td><td><a href="#content-sortkeysdesc">sortKeysDesc</a></td><td><a href="#content-wherestrict">whereStrict</a></td></tr>
+<tr><td><a href="#content-flatmap">flatMap</a></td><td><a href="#content-multiply">multiply</a></td><td><a href="#content-sortkeysusing">sortKeysUsing</a></td><td><a href="#content-wrap">wrap</a></td></tr>
+<tr><td><a href="#content-flatten">flatten</a></td><td><a href="#content-nth">nth</a></td><td><a href="#content-splice">splice</a></td><td><a href="#content-zip">zip</a></td></tr>
+<tr><td><a href="#content-flip">flip</a></td><td><a href="#content-only">only</a></td><td><a href="#content-split">split</a></td><td></td></tr>
+</tbody>
+</table>
 
 #### `after`
 

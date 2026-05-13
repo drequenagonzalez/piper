@@ -11,29 +11,31 @@ use function Spatie\Piper\Str\{prefix, suffix, upper};
 
 Each function takes its subject as the first argument, so it slots naturally into a pipe. The reference below lists every available function in alphabetical order. Click a name to jump straight to its description.
 
-| | | | |
-|---|---|---|---|
-| [after](#content-after) | [isMatch](#content-ismatch) | [remove](#content-remove) | [substrReplace](#content-substrreplace) |
-| [afterLast](#content-afterlast) | [isNotEmpty](#content-isnotempty) | [repeat](#content-repeat) | [swap](#content-swap) |
-| [append](#content-append) | [isUlid](#content-isulid) | [replace](#content-replace) | [take](#content-take) |
-| [before](#content-before) | [isUuid](#content-isuuid) | [replaceArray](#content-replacearray) | [test](#content-test) |
-| [beforeLast](#content-beforelast) | [kebab](#content-kebab) | [replaceEnd](#content-replaceend) | [title](#content-title) |
-| [between](#content-between) | [lcfirst](#content-lcfirst) | [replaceFirst](#content-replacefirst) | [toBase64](#content-tobase64) |
-| [betweenFirst](#content-betweenfirst) | [length](#content-length) | [replaceLast](#content-replacelast) | [toBoolean](#content-toboolean) |
-| [camel](#content-camel) | [limit](#content-limit) | [replaceMatches](#content-replacematches) | [toFloat](#content-tofloat) |
-| [charAt](#content-charat) | [lower](#content-lower) | [replaceStart](#content-replacestart) | [toInteger](#content-tointeger) |
-| [contains](#content-contains) | [ltrim](#content-ltrim) | [reverse](#content-reverse) | [toString](#content-tostring) |
-| [deduplicate](#content-deduplicate) | [mask](#content-mask) | [rtrim](#content-rtrim) | [trim](#content-trim) |
-| [endsWith](#content-endswith) | [matchAll](#content-matchall) | [scan](#content-scan) | [ucfirst](#content-ucfirst) |
-| [exactly](#content-exactly) | [newLine](#content-newline) | [snake](#content-snake) | [unwrap](#content-unwrap) |
-| [explode](#content-explode) | [numbers](#content-numbers) | [split](#content-split) | [upper](#content-upper) |
-| [finish](#content-finish) | [padBoth](#content-padboth) | [squish](#content-squish) | [wordCount](#content-wordcount) |
-| [fromBase64](#content-frombase64) | [padLeft](#content-padleft) | [start](#content-start) | [wordWrap](#content-wordwrap) |
-| [headline](#content-headline) | [padRight](#content-padright) | [startsWith](#content-startswith) | [words](#content-words) |
-| [is](#content-is) | [password](#content-password) | [stripTags](#content-striptags) | [wrap](#content-wrap) |
-| [isAscii](#content-isascii) | [position](#content-position) | [studly](#content-studly) |  |
-| [isEmpty](#content-isempty) | [prepend](#content-prepend) | [substr](#content-substr) |  |
-| [isJson](#content-isjson) | [random](#content-random) | [substrCount](#content-substrcount) |  |
+<table style="font-size: 1.1em;">
+<tbody>
+<tr><td><a href="#content-after">after</a></td><td><a href="#content-ismatch">isMatch</a></td><td><a href="#content-remove">remove</a></td><td><a href="#content-substrreplace">substrReplace</a></td></tr>
+<tr><td><a href="#content-afterlast">afterLast</a></td><td><a href="#content-isnotempty">isNotEmpty</a></td><td><a href="#content-repeat">repeat</a></td><td><a href="#content-swap">swap</a></td></tr>
+<tr><td><a href="#content-append">append</a></td><td><a href="#content-isulid">isUlid</a></td><td><a href="#content-replace">replace</a></td><td><a href="#content-take">take</a></td></tr>
+<tr><td><a href="#content-before">before</a></td><td><a href="#content-isuuid">isUuid</a></td><td><a href="#content-replacearray">replaceArray</a></td><td><a href="#content-test">test</a></td></tr>
+<tr><td><a href="#content-beforelast">beforeLast</a></td><td><a href="#content-kebab">kebab</a></td><td><a href="#content-replaceend">replaceEnd</a></td><td><a href="#content-title">title</a></td></tr>
+<tr><td><a href="#content-between">between</a></td><td><a href="#content-lcfirst">lcfirst</a></td><td><a href="#content-replacefirst">replaceFirst</a></td><td><a href="#content-tobase64">toBase64</a></td></tr>
+<tr><td><a href="#content-betweenfirst">betweenFirst</a></td><td><a href="#content-length">length</a></td><td><a href="#content-replacelast">replaceLast</a></td><td><a href="#content-toboolean">toBoolean</a></td></tr>
+<tr><td><a href="#content-camel">camel</a></td><td><a href="#content-limit">limit</a></td><td><a href="#content-replacematches">replaceMatches</a></td><td><a href="#content-tofloat">toFloat</a></td></tr>
+<tr><td><a href="#content-charat">charAt</a></td><td><a href="#content-lower">lower</a></td><td><a href="#content-replacestart">replaceStart</a></td><td><a href="#content-tointeger">toInteger</a></td></tr>
+<tr><td><a href="#content-contains">contains</a></td><td><a href="#content-ltrim">ltrim</a></td><td><a href="#content-reverse">reverse</a></td><td><a href="#content-tostring">toString</a></td></tr>
+<tr><td><a href="#content-deduplicate">deduplicate</a></td><td><a href="#content-mask">mask</a></td><td><a href="#content-rtrim">rtrim</a></td><td><a href="#content-trim">trim</a></td></tr>
+<tr><td><a href="#content-endswith">endsWith</a></td><td><a href="#content-matchall">matchAll</a></td><td><a href="#content-scan">scan</a></td><td><a href="#content-ucfirst">ucfirst</a></td></tr>
+<tr><td><a href="#content-exactly">exactly</a></td><td><a href="#content-newline">newLine</a></td><td><a href="#content-snake">snake</a></td><td><a href="#content-unwrap">unwrap</a></td></tr>
+<tr><td><a href="#content-explode">explode</a></td><td><a href="#content-numbers">numbers</a></td><td><a href="#content-split">split</a></td><td><a href="#content-upper">upper</a></td></tr>
+<tr><td><a href="#content-finish">finish</a></td><td><a href="#content-padboth">padBoth</a></td><td><a href="#content-squish">squish</a></td><td><a href="#content-wordcount">wordCount</a></td></tr>
+<tr><td><a href="#content-frombase64">fromBase64</a></td><td><a href="#content-padleft">padLeft</a></td><td><a href="#content-start">start</a></td><td><a href="#content-wordwrap">wordWrap</a></td></tr>
+<tr><td><a href="#content-headline">headline</a></td><td><a href="#content-padright">padRight</a></td><td><a href="#content-startswith">startsWith</a></td><td><a href="#content-words">words</a></td></tr>
+<tr><td><a href="#content-is">is</a></td><td><a href="#content-password">password</a></td><td><a href="#content-striptags">stripTags</a></td><td><a href="#content-wrap">wrap</a></td></tr>
+<tr><td><a href="#content-isascii">isAscii</a></td><td><a href="#content-position">position</a></td><td><a href="#content-studly">studly</a></td><td></td></tr>
+<tr><td><a href="#content-isempty">isEmpty</a></td><td><a href="#content-prepend">prepend</a></td><td><a href="#content-substr">substr</a></td><td></td></tr>
+<tr><td><a href="#content-isjson">isJson</a></td><td><a href="#content-random">random</a></td><td><a href="#content-substrcount">substrCount</a></td><td></td></tr>
+</tbody>
+</table>
 
 #### `after`
 
