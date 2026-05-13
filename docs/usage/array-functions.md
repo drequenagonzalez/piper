@@ -9,6 +9,49 @@ All array functions live in the `Spatie\Piper\Arr` namespace. Import them indivi
 use function Spatie\Piper\Arr\{filter, map, values};
 ```
 
+Each function takes its subject as the first argument, so it slots naturally into a pipe. The reference below lists every available function in alphabetical order. Click a name to jump straight to its description.
+
+| | | | |
+|---|---|---|---|
+| [after](#content-after) | [forPage](#content-forpage) | [pad](#content-pad) | [splitIn](#content-splitin) |
+| [average](#content-average) | [forget](#content-forget) | [partition](#content-partition) | [sum](#content-sum) |
+| [avg](#content-avg) | [fromJson](#content-fromjson) | [percentage](#content-percentage) | [take](#content-take) |
+| [before](#content-before) | [get](#content-get) | [pluck](#content-pluck) | [takeUntil](#content-takeuntil) |
+| [chunk](#content-chunk) | [getOrPut](#content-getorput) | [pop](#content-pop) | [takeWhile](#content-takewhile) |
+| [chunkWhile](#content-chunkwhile) | [groupBy](#content-groupby) | [prepend](#content-prepend) | [tap](#content-tap) |
+| [collapse](#content-collapse) | [has](#content-has) | [pull](#content-pull) | [times](#content-times) |
+| [collapseWithKeys](#content-collapsewithkeys) | [hasAny](#content-hasany) | [push](#content-push) | [toArray](#content-toarray) |
+| [combine](#content-combine) | [hasMany](#content-hasmany) | [put](#content-put) | [toJson](#content-tojson) |
+| [concat](#content-concat) | [hasSole](#content-hassole) | [random](#content-random) | [toPrettyJson](#content-toprettyjson) |
+| [contains](#content-contains) | [implode](#content-implode) | [range](#content-range) | [transform](#content-transform) |
+| [containsStrict](#content-containsstrict) | [intersect](#content-intersect) | [reduce](#content-reduce) | [undot](#content-undot) |
+| [count](#content-count) | [intersectAssoc](#content-intersectassoc) | [reduceSpread](#content-reducespread) | [union](#content-union) |
+| [countBy](#content-countby) | [intersectAssocUsing](#content-intersectassocusing) | [reduceWithKeys](#content-reducewithkeys) | [unique](#content-unique) |
+| [crossJoin](#content-crossjoin) | [intersectByKeys](#content-intersectbykeys) | [reject](#content-reject) | [uniqueStrict](#content-uniquestrict) |
+| [diff](#content-diff) | [intersectUsing](#content-intersectusing) | [replace](#content-replace) | [unless](#content-unless) |
+| [diffAssoc](#content-diffassoc) | [isEmpty](#content-isempty) | [replaceRecursive](#content-replacerecursive) | [unlessEmpty](#content-unlessempty) |
+| [diffAssocUsing](#content-diffassocusing) | [isNotEmpty](#content-isnotempty) | [reverse](#content-reverse) | [unlessNotEmpty](#content-unlessnotempty) |
+| [diffKeys](#content-diffkeys) | [join](#content-join) | [search](#content-search) | [unwrap](#content-unwrap) |
+| [diffKeysUsing](#content-diffkeysusing) | [keyBy](#content-keyby) | [select](#content-select) | [value](#content-value) |
+| [diffUsing](#content-diffusing) | [keys](#content-keys) | [shift](#content-shift) | [values](#content-values) |
+| [doesntContain](#content-doesntcontain) | [last](#content-last) | [shuffle](#content-shuffle) | [when](#content-when) |
+| [doesntContainStrict](#content-doesntcontainstrict) | [make](#content-make) | [skip](#content-skip) | [whenEmpty](#content-whenempty) |
+| [dot](#content-dot) | [map](#content-map) | [skipUntil](#content-skipuntil) | [whenNotEmpty](#content-whennotempty) |
+| [duplicates](#content-duplicates) | [mapInto](#content-mapinto) | [skipWhile](#content-skipwhile) | [where](#content-where) |
+| [duplicatesStrict](#content-duplicatesstrict) | [mapSpread](#content-mapspread) | [slice](#content-slice) | [whereBetween](#content-wherebetween) |
+| [each](#content-each) | [mapToDictionary](#content-maptodictionary) | [sliding](#content-sliding) | [whereIn](#content-wherein) |
+| [eachSpread](#content-eachspread) | [mapToGroups](#content-maptogroups) | [sole](#content-sole) | [whereInStrict](#content-whereinstrict) |
+| [ensure](#content-ensure) | [mapWithKeys](#content-mapwithkeys) | [some](#content-some) | [whereInstanceOf](#content-whereinstanceof) |
+| [every](#content-every) | [max](#content-max) | [sort](#content-sort) | [whereNotBetween](#content-wherenotbetween) |
+| [except](#content-except) | [median](#content-median) | [sortBy](#content-sortby) | [whereNotIn](#content-wherenotin) |
+| [filter](#content-filter) | [merge](#content-merge) | [sortByDesc](#content-sortbydesc) | [whereNotInStrict](#content-wherenotinstrict) |
+| [first](#content-first) | [mergeRecursive](#content-mergerecursive) | [sortDesc](#content-sortdesc) | [whereNotNull](#content-wherenotnull) |
+| [firstOrFail](#content-firstorfail) | [min](#content-min) | [sortKeys](#content-sortkeys) | [whereNull](#content-wherenull) |
+| [firstWhere](#content-firstwhere) | [mode](#content-mode) | [sortKeysDesc](#content-sortkeysdesc) | [whereStrict](#content-wherestrict) |
+| [flatMap](#content-flatmap) | [multiply](#content-multiply) | [sortKeysUsing](#content-sortkeysusing) | [wrap](#content-wrap) |
+| [flatten](#content-flatten) | [nth](#content-nth) | [splice](#content-splice) | [zip](#content-zip) |
+| [flip](#content-flip) | [only](#content-only) | [split](#content-split) |  |
+
 #### `after`
 
 Returns the item after the given value.

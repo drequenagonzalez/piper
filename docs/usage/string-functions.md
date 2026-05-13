@@ -9,6 +9,32 @@ All string functions live in the `Spatie\Piper\Str` namespace. Import them indiv
 use function Spatie\Piper\Str\{prefix, suffix, upper};
 ```
 
+Each function takes its subject as the first argument, so it slots naturally into a pipe. The reference below lists every available function in alphabetical order. Click a name to jump straight to its description.
+
+| | | | |
+|---|---|---|---|
+| [after](#content-after) | [isMatch](#content-ismatch) | [remove](#content-remove) | [substrReplace](#content-substrreplace) |
+| [afterLast](#content-afterlast) | [isNotEmpty](#content-isnotempty) | [repeat](#content-repeat) | [swap](#content-swap) |
+| [append](#content-append) | [isUlid](#content-isulid) | [replace](#content-replace) | [take](#content-take) |
+| [before](#content-before) | [isUuid](#content-isuuid) | [replaceArray](#content-replacearray) | [test](#content-test) |
+| [beforeLast](#content-beforelast) | [kebab](#content-kebab) | [replaceEnd](#content-replaceend) | [title](#content-title) |
+| [between](#content-between) | [lcfirst](#content-lcfirst) | [replaceFirst](#content-replacefirst) | [toBase64](#content-tobase64) |
+| [betweenFirst](#content-betweenfirst) | [length](#content-length) | [replaceLast](#content-replacelast) | [toBoolean](#content-toboolean) |
+| [camel](#content-camel) | [limit](#content-limit) | [replaceMatches](#content-replacematches) | [toFloat](#content-tofloat) |
+| [charAt](#content-charat) | [lower](#content-lower) | [replaceStart](#content-replacestart) | [toInteger](#content-tointeger) |
+| [contains](#content-contains) | [ltrim](#content-ltrim) | [reverse](#content-reverse) | [toString](#content-tostring) |
+| [deduplicate](#content-deduplicate) | [mask](#content-mask) | [rtrim](#content-rtrim) | [trim](#content-trim) |
+| [endsWith](#content-endswith) | [matchAll](#content-matchall) | [scan](#content-scan) | [ucfirst](#content-ucfirst) |
+| [exactly](#content-exactly) | [newLine](#content-newline) | [snake](#content-snake) | [unwrap](#content-unwrap) |
+| [explode](#content-explode) | [numbers](#content-numbers) | [split](#content-split) | [upper](#content-upper) |
+| [finish](#content-finish) | [padBoth](#content-padboth) | [squish](#content-squish) | [wordCount](#content-wordcount) |
+| [fromBase64](#content-frombase64) | [padLeft](#content-padleft) | [start](#content-start) | [wordWrap](#content-wordwrap) |
+| [headline](#content-headline) | [padRight](#content-padright) | [startsWith](#content-startswith) | [words](#content-words) |
+| [is](#content-is) | [password](#content-password) | [stripTags](#content-striptags) | [wrap](#content-wrap) |
+| [isAscii](#content-isascii) | [position](#content-position) | [studly](#content-studly) |  |
+| [isEmpty](#content-isempty) | [prepend](#content-prepend) | [substr](#content-substr) |  |
+| [isJson](#content-isjson) | [random](#content-random) | [substrCount](#content-substrcount) |  |
+
 #### `after`
 
 Returns everything after the given value.
