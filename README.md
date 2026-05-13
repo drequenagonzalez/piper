@@ -1,9 +1,19 @@
-# The pipe operator-first utility library
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=piper">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/piper/html/dark.webp?1776851353">
+        <img alt="Logo for scotty" src="https://spatie.be/packages/header/piper/html/light.webp?1776851353">
+      </picture>
+    </a>
+
+<h1>Pipe operator-first utility library</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/piper.svg?style=flat-square)](https://packagist.org/packages/spatie/piper)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/spatie/piper/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/spatie/piper/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/spatie/piper/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/spatie/piper/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/piper.svg?style=flat-square)](https://packagist.org/packages/spatie/piper)
+
+</div>
 
 Piper is a pipe operator-first PHP utility library for array and string manipulation. It ports Laravel's collection and string utility methods to standalone functions.
 
