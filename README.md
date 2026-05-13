@@ -7,6 +7,32 @@
 
 Piper is a pipe operator-first PHP utility library for array and string manipulation. It ports Laravel's collection and string utility methods to standalone functions.
 
+It comes with array helpers:
+
+```php
+use function Spatie\Piper\Arr\{filter, map};
+
+$popular = $posts
+    |> filter(fn (Post $post) => $post->views > 1000)
+    |> map(fn (Post $post) => $post->title);
+
+// ["Claude Talk Small. Code Still Big.", …]
+```
+
+And string helpers:
+
+```php
+use function Spatie\Piper\Str\{lower, replace};
+
+'Hello, world!'
+    |> lower()
+    |> replace('world', 'Piper');
+
+// "hello, Piper!"
+```
+
+Since all functions work with primitives, you can mix and match:
+
 ```php
 use function Spatie\Piper\Arr\{filter, join, map, values};
 use function Spatie\Piper\Str\{prefix, suffix};

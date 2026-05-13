@@ -1,6 +1,6 @@
 ---
 title: String functions
-weight: 4
+weight: 2
 ---
 
 All string functions live in the `Spatie\Piper\Str` namespace. Import them individually or in groups.

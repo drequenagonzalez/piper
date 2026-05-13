@@ -1,6 +1,6 @@
 ---
 title: Array functions
-weight: 3
+weight: 1
 ---
 
 All array functions live in the `Spatie\Piper\Arr` namespace. Import them individually or in groups.
