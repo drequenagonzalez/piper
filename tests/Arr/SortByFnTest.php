@@ -1,6 +1,6 @@
 <?php
 
-use function Spatie\Piper\Arr\sort;
+use function Spatie\Piper\Arr\sortBy;
 
 it('sorts values ascending while preserving keys', function () {
     expect([
@@ -14,7 +14,7 @@ it('sorts values ascending while preserving keys', function () {
     ]))->toBe([
         2 => ['name' => 'Aaron', 'score' => 59],
         0 => ['name' => 'Aaron', 'score' => 43],
+        1 => ['name' => 'Sophie', 'score' => 87],
         3 => ['name' => 'Sophie', 'score' => 62],
-        1 => ['name' => 'Sophie', 'score' => 59],
     ]);
 });
